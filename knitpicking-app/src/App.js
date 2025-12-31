@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { Container, Typography } from '@mui/material';
 import ProjectList from './components/ProjectList';
 import AddProjectDialog from './components/AddProjectDialog';
+import useLocalStorage from './hooks/useLocalStorage';
 
 /**
  * Main App Component
  *
  * Manages all projects and their state.
- * TODO: Add localStorage persistence
+ * Projects are persisted to localStorage automatically.
  */
 function App() {
-  // State for all projects
-  const [projects, setProjects] = useState([]);
+  // State for all projects - persisted to localStorage
+  const [projects, setProjects] = useLocalStorage('knitpicking-projects', []);
 
   // State for Add Project dialog
   const [dialogOpen, setDialogOpen] = useState(false);
