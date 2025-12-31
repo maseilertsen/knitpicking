@@ -1,38 +1,45 @@
 import { useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import Project from './components/Project';
+import ProjectList from './components/ProjectList';
+import AddProjectDialog from './components/AddProjectDialog';
 
 /**
  * Main App Component
  *
- * This is a demo to showcase the Project component.
- * Eventually this will manage multiple projects with localStorage.
+ * Manages all projects and their state.
+ * TODO: Add localStorage persistence
  */
 function App() {
-  // Demo project data
-  const [project, setProject] = useState({
-    id: '1',
-    name: 'Winter Scarf',
-    color: '#ff69b4',
-    counters: [
-      { label: 'Rounds', value: 0 },
-      { label: 'Needles', value: 0 }
-    ]
-  });
+  // State for all projects
+  const [projects, setProjects] = useState([]);
 
-  // Update a specific counter
-  const handleUpdateCounter = (counterIndex, newValue) => {
-    setProject(prev => ({
-      ...prev,
-      counters: prev.counters.map((counter, index) =>
-        index === counterIndex ? { ...counter, value: newValue } : counter
-      )
-    }));
+  // State for Add Project dialog
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  // Add a new project
+  const handleAddProject = (newProject) => {
+    setProjects(prev => [...prev, newProject]);
   };
 
-  // Delete handler (for demo, just logs)
-  const handleDelete = () => {
-    console.log('Delete clicked for:', project.name);
+  // Update a specific counter in a specific project
+  const handleUpdateCounter = (projectId, counterIndex, newValue) => {
+    setProjects(prev =>
+      prev.map(project =>
+        project.id === projectId
+          ? {
+              ...project,
+              counters: project.counters.map((counter, index) =>
+                index === counterIndex ? { ...counter, value: newValue } : counter
+              ),
+            }
+          : project
+      )
+    );
+  };
+
+  // Delete a project
+  const handleDeleteProject = (projectId) => {
+    setProjects(prev => prev.filter(project => project.id !== projectId));
   };
 
   return (
@@ -42,7 +49,7 @@ function App() {
         variant="h1"
         sx={{
           textAlign: 'center',
-          marginBottom: 4,
+          marginBottom: 1,
           color: 'primary.main',
           fontSize: { xs: '2rem', sm: '2.5rem' },
         }}
@@ -50,7 +57,7 @@ function App() {
         Knitpicking
       </Typography>
 
-      {/* Demo Description */}
+      {/* Subtitle */}
       <Typography
         variant="body1"
         sx={{
@@ -59,14 +66,22 @@ function App() {
           marginBottom: 4,
         }}
       >
-        A counter app for knitting/crochet
+        Track your knitting and crochet projects
       </Typography>
 
-      {/* Project Component */}
-      <Project
-        project={project}
+      {/* Projects List */}
+      <ProjectList
+        projects={projects}
         onUpdateCounter={handleUpdateCounter}
-        onDelete={handleDelete}
+        onDeleteProject={handleDeleteProject}
+        onAddClick={() => setDialogOpen(true)}
+      />
+
+      {/* Add Project Dialog */}
+      <AddProjectDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onAdd={handleAddProject}
       />
     </Container>
   );

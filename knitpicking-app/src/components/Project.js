@@ -27,10 +27,10 @@ function Project({ project, onUpdateCounter, onDelete }) {
   return (
     <Box
       sx={{
-        backgroundColor: 'rgba(255, 192, 203, 0.08)', // Light pink with transparency
+        backgroundColor: `${project.color}15`, // Selected color with 15% opacity
         borderRadius: 2,
         border: '2px solid',
-        borderColor: project.color || 'primary.main',
+        borderColor: `${project.color}80`, // Selected color with 50% opacity
         padding: 3,
         marginBottom: 3,
       }}
