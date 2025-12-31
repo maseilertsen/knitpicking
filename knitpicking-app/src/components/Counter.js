@@ -19,67 +19,89 @@ function Counter({ label, value, onIncrement, onDecrement, onReset }) {
   return (
     <Box
       sx={{
+        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         padding: 2,
-        minWidth: '180px',
+        paddingTop: 1,
+        minWidth: '200px',
         flex: 1,
-        backgroundColor: 'rgba(255, 192, 203, 0.15)', // Lighter pink background
+        backgroundColor: 'rgba(255, 192, 203, 0.15)',
         borderRadius: 2,
         border: '1px solid',
-        borderColor: 'rgba(255, 105, 180, 0.3)', // Semi-transparent pink border
+        borderColor: 'rgba(255, 105, 180, 0.3)',
       }}
     >
-      {/* Label and Value - Horizontal Layout */}
-      <Box
+      {/* Reset Button - Top Right Corner */}
+      <Button
+        onClick={onReset}
+        variant="text"
+        size="small"
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline',
-          marginBottom: 1.5,
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          minWidth: 'auto',
+          color: 'text.secondary',
+          fontSize: '0.75rem',
+          padding: '4px 8px',
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          },
         }}
       >
-        {/* Counter Label */}
-        <Typography
-          variant="h6"
-          sx={{
-            color: 'primary.main',
-            fontWeight: 600,
-            fontSize: '1rem',
-          }}
-        >
-          {label}
-        </Typography>
+        Reset
+      </Button>
 
-        {/* Counter Value Display */}
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: '2.5rem',
-            fontWeight: 700,
-            color: 'text.primary',
-          }}
-        >
-          {value}
-        </Typography>
-      </Box>
+      {/* Counter Label - Top Center */}
+      <Typography
+        variant="h6"
+        sx={{
+          color: 'primary.main',
+          fontWeight: 600,
+          fontSize: '1rem',
+          marginBottom: 0.5,
+          marginTop: 1,
+          textAlign: 'center',
+        }}
+      >
+        {label}
+      </Typography>
 
-      {/* Increment/Decrement and Reset Buttons */}
+      {/* Counter Value Display - Large and Centered */}
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: '5rem',
+          fontWeight: 700,
+          color: 'text.primary',
+          marginBottom: 1,
+          lineHeight: 1,
+        }}
+      >
+        {value}
+      </Typography>
+
+      {/* Increment/Decrement Buttons - Extra Large */}
       <Box
         sx={{
           display: 'flex',
-          gap: 1,
+          gap: 2,
           alignItems: 'center',
+          width: '100%',
+          justifyContent: 'center',
         }}
       >
-        {/* Decrement Button */}
+        {/* Decrement Button - Extra Large */}
         <IconButton
           onClick={onDecrement}
           disabled={value === 0}
           color="primary"
-          size="small"
           sx={{
-            border: '2px solid',
+            width: 100,
+            height: 100,
+            border: '3px solid',
             borderColor: value === 0 ? 'grey.700' : 'primary.main',
             backgroundColor: value === 0 ? 'grey.900' : 'background.default',
             '&:hover': {
@@ -91,16 +113,17 @@ function Counter({ label, value, onIncrement, onDecrement, onReset }) {
             },
           }}
         >
-          <RemoveIcon fontSize="small" />
+          <RemoveIcon sx={{ fontSize: '2.5rem' }} />
         </IconButton>
 
-        {/* Increment Button */}
+        {/* Increment Button - Extra Large */}
         <IconButton
           onClick={onIncrement}
           color="primary"
-          size="small"
           sx={{
-            border: '2px solid',
+            width: 100,
+            height: 100,
+            border: '3px solid',
             borderColor: 'primary.main',
             backgroundColor: 'background.default',
             '&:hover': {
@@ -108,27 +131,8 @@ function Counter({ label, value, onIncrement, onDecrement, onReset }) {
             },
           }}
         >
-          <AddIcon fontSize="small" />
+          <AddIcon sx={{ fontSize: '2.5rem' }} />
         </IconButton>
-
-        {/* Reset Button */}
-        <Button
-          onClick={onReset}
-          variant="outlined"
-          size="small"
-          sx={{
-            marginLeft: 'auto',
-            color: 'text.secondary',
-            borderColor: 'grey.700',
-            fontSize: '0.75rem',
-            '&:hover': {
-              borderColor: 'grey.500',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            },
-          }}
-        >
-          Reset
-        </Button>
       </Box>
     </Box>
   );

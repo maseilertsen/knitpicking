@@ -24,7 +24,7 @@ function AddProjectDialog({ open, onClose, onAdd }) {
   // Form state
   const [projectName, setProjectName] = useState('');
   const [counter1Label, setCounter1Label] = useState('Rounds');
-  const [counter2Label, setCounter2Label] = useState('Needles');
+  const [counter2Label, setCounter2Label] = useState('Needle');
   const [selectedColor, setSelectedColor] = useState('#ff69b4');
 
   // Predefined pink color options
